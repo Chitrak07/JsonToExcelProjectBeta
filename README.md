@@ -47,33 +47,74 @@ Apache POI for creating Excel files
 
 
 ```java
-        String inputFile = "input.txt";
-        String state = "";
-        String employees = "";
-        String employeeId = "";
-        // Opens and reads the file using a BufferedReader and reads all lines and combines them into one string.
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+String inputFile = "input.txt";
+String state = "";
+String employees = "";
+String employeeId = "";
+       
+try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
-            }
+}
 ```
-
+Opens and reads the file using a BufferedReader and reads all lines and combines them into one string.
 
 
 
 ```java
-            //Converts the built string to a single variable for processing.
-            String content = sb.toString();
 
-            //Extracts the values of state, employees, and employeeId using a helper method.
-            state = extractQuotedValue(content, "state");
-            employees = extractQuotedValue(content, "employees");
-            employeeId = extractQuotedValue(content, "employeeId");
+String content = sb.toString();
+        
+state = extractQuotedValue(content, "state");
+employees = extractQuotedValue(content, "employees");
+employeeId = extractQuotedValue(content, "employeeId");
 
+String outputFile = employeeId + ".xlsx";
+
+Prepares the output file name using the employee ID.
 
 ```
+Converts the built string to a single variable for processing.
+Extracts the values of state, employees, and employeeId using a helper method.
+Prepares the output file name using the employee ID.
+Creates a new Excel workbook and a sheet named "Details".
+
+```java
+
+Row row1 = sheet.createRow(0);
+row1.createCell(0).setCellValue("State");
+row1.createCell(1).setCellValue(state);
+
+Row row2 = sheet.createRow(1);
+row2.createCell(0).setCellValue("Employees");
+row2.createCell(1).setCellValue(employees);
+
+```
+Writes the first row with State and its value.
+Writes the second row with Employees and its value.
+
+```java
+
+ try (FileOutputStream fileOut = new FileOutputStream(outputFile)) {
+                    workbook.write(fileOut);
+ }
+
+System.out.println("Excel created: " + outputFile);
+
+```
+Saves the Excel workbook to the file named after the employee ID.
+Prints a confirmation message in the console.
+
+```java
+    private static String extractQuotedValue(String text, String key) {
+        String pattern = "\"" + key + "\"\\s*:\\s*\"([^\"]*)\"";
+        Matcher matcher = Pattern.compile(pattern).matcher(text);
+        return matcher.find() ? matcher.group(1) : "";
+    }
+```
+A helper method that uses regex to extract quoted values for a given key like "state": "California".
 
 
 
