@@ -35,6 +35,8 @@ import java.util.regex.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+```
+
 These import all the required libraries:
 
 java.io.* for reading/writing files
@@ -42,6 +44,36 @@ java.io.* for reading/writing files
 java.util.regex.* for extracting values using regular expressions
 
 Apache POI for creating Excel files
+
+
+```java
+        String inputFile = "input.txt";
+        String state = "";
+        String employees = "";
+        String employeeId = "";
+        // Opens and reads the file using a BufferedReader and reads all lines and combines them into one string.
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+```
+
+
+
+
+```java
+            //Converts the built string to a single variable for processing.
+            String content = sb.toString();
+
+            //Extracts the values of state, employees, and employeeId using a helper method.
+            state = extractQuotedValue(content, "state");
+            employees = extractQuotedValue(content, "employees");
+            employeeId = extractQuotedValue(content, "employeeId");
+
+
+```
 
 
 
