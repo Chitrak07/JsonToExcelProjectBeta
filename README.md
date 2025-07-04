@@ -21,7 +21,7 @@ This project reads a `.txt` file containing JSON-like data and writes selected f
   "state": "California",
   "employees": "150000"
 }
-
+```
 
 ## 📘 Code Explanation (Line-by-Line)
 
