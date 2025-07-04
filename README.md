@@ -21,3 +21,27 @@ This project reads a `.txt` file containing JSON-like data and writes selected f
   "state": "California",
   "employees": "150000"
 }
+
+
+## 📘 Code Explanation (Line-by-Line)
+
+This section explains how the `Main.java` code works.
+
+---
+
+```java
+import java.io.*;
+import java.util.regex.*;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+These import all the required libraries:
+
+java.io.* for reading/writing files
+
+java.util.regex.* for extracting values using regular expressions
+
+Apache POI for creating Excel files
+
+
+
